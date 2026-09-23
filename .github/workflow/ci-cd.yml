@@ -1,0 +1,62 @@
+name: Build Test Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm Install
+
+      - name: Build application
+        run: npm run build
+    
+  test:
+    name: Test application
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm Install
+
+      - name: Test application
+        run: npm run test
+
+  deploy:
+    name: Deploy application
+    runs-on: ubuntu-latest
+    needs: test
+  
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy Application
+        run: |
+          echo "Starting deployment..."
+          echo "Deploying version: ${{ github.sha }}"
+          echo "Deployment completed successfully"
