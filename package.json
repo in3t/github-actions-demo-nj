@@ -1,14 +1,14 @@
 {
-    "name": "github-actions-demo",
-    "version": "1.0.0",
-    "description": "Sample Node.js CI/CD project using GitHub Actions",
-    "main": "src/app.js",
-    "scripts": {
-      "start": "node src/app.js",
-      "build": "echo \"Build completed successfully\"",
-      "test": "jest"
-    },
-    "devDependencies": {
-      "jest": "^30.0.0"
-    }
+  "name": "github-actions-demo",
+  "version": "1.0.0",
+  "description": "Sample Node.js CI/CD project using GitHub Actions",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "build": "echo \"Build completed successfully\"",
+    "test": "node ./node_modules/jest/bin/jest.js"
+  },
+  "devDependencies": {
+    "jest": "^30.0.0"
   }
+}
